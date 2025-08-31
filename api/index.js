@@ -6,6 +6,8 @@ import authRouter from './routes/auth.route.js';
 import cookieParser from 'cookie-parser';
 import { SiExpertsexchange } from 'react-icons/si';
 dotenv.config();
+import cors from 'cors';
+
 
 mongoose.connect(process.env.MONGO).then(() => {
     console.log("Connected to MongoDB");
@@ -13,6 +15,11 @@ mongoose.connect(process.env.MONGO).then(() => {
     console.log(err);
 });
 const app=express();
+
+app.use(cors({
+  origin: 'http://localhost:5173', // Vite dev server URL
+  credentials: true
+}));
 
 
 app.listen(3000,() => {
@@ -34,3 +41,4 @@ app.use((err,req,res,next)=>{
         message,
     });
 })
+
